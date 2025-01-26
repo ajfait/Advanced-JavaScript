@@ -7,7 +7,15 @@ function validateUsername() {
     alert("Enter a valid username");
     return false;
   } else {
+    console.log(username);
+    clearInput();
     alert("The username you entered is: " + username);
     return true;
   }
+}
+
+function clearInput() {
+  "use strict";
+
+  document.getElementById("username").value = "";
 }
