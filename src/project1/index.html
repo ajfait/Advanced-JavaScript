@@ -15,6 +15,13 @@
   <body>
     <div class="container mt-3">
       <h1>Tax Calculator</h1>
+      <h2>Wisconsin Residents</h2>
+    </div>
+    <div class="container mt-3">
+      <p>
+        Enter your gross annual salary to calculate how much you owe in taxes
+        for 2024.
+      </p>
     </div>
     <div class="container mt-3">
       <form class="form-floating">
@@ -22,12 +29,10 @@
           type="number"
           class="form-control"
           id="salary"
-          placeholder="e.g. $50,000"
-          value="$50,000"
           min="0"
           max="999999999"
         />
-        <label for="salary">Salary</label>
+        <label for="salary">Gross Annual Salary</label>
         <div class="container mt-3">
           <button type="button" class="btn btn-primary">Calculate Taxes</button>
         </div>
