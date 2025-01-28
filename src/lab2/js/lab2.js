@@ -6,4 +6,8 @@ const init = () => {
   let bornInMadison = false;
 
   console.log(id, firstName, bornInMadison);
+
+  printLabTitle();
 };
+
+const printLabTitle = () => console.log(labTitle);
