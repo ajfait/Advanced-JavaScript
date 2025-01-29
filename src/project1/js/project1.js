@@ -11,7 +11,18 @@ const calculateWisconsinTax = (grossPay) => {
 };
 
 const calculateMedicareTax = (grossPay) => {
+  const RATE_MEDICARE_LOWER = 0.0145;
+  const RATE_MEDICARE_UPPER = 0.0235;
+  const LIMIT_MEDICARE = 200000;
+
   let medicareTax = 0;
+
+  if (grossPay > LIMIT_MEDICARE) {
+    medicareTax = RATE_MEDICARE_LOWER * LIMIT_MEDICARE;
+    medicareTax += RATE_MEDICARE_UPPER * (grossPay - LIMIT_MEDICARE);
+  } else {
+    medicareTax = RATE_MEDICARE_LOWER * grossPay;
+  }
 
   return medicareTax;
 };
