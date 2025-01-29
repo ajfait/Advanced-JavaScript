@@ -1,3 +1,5 @@
+"use strict";
+
 const calculateFederalTax = (grossPay) => {
   let federalTax = 0;
 
