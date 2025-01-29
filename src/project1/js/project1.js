@@ -22,10 +22,11 @@ const calculateSocialSecurityTax = (grossPay) => {
 
   let socialSecurityTax = 0;
 
-  (grossPay) =>
-    LIMIT_SOCIAL_SECURITY
-      ? (socialSecurityTax = RATE_SOCIAL_SECURITY * LIMIT_SOCIAL_SECURITY)
-      : (socialSecurityTax = RATE_SOCIAL_SECURITY * grossPay);
+  if (grossPay > LIMIT_SOCIAL_SECURITY) {
+    socialSecurityTax = RATE_SOCIAL_SECURITY * LIMIT_SOCIAL_SECURITY;
+  } else {
+    socialSecurityTax = RATE_SOCIAL_SECURITY * grossPay;
+  }
 
   return socialSecurityTax;
 };
