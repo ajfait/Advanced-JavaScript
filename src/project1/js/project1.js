@@ -17,7 +17,15 @@ const calculateMedicareTax = (grossPay) => {
 };
 
 const calculateSocialSecurityTax = (grossPay) => {
+  const RATE_SOCIAL_SECURITY = 0.62;
+  const LIMIT_SOCIAL_SECURITY = 168600;
+
   let socialSecurityTax = 0;
+
+  (grossPay) =>
+    LIMIT_SOCIAL_SECURITY
+      ? (socialSecurityTax = RATE_SOCIAL_SECURITY * LIMIT_SOCIAL_SECURITY)
+      : (socialSecurityTax = RATE_SOCIAL_SECURITY * grossPay);
 
   return socialSecurityTax;
 };
