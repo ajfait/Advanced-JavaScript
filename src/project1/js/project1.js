@@ -1,7 +1,53 @@
 "use strict";
 
 const calculateFederalTax = (grossPay) => {
+  const RATE_FEDERAL_BRACKET1 = 0.1;
+  const RATE_FEDERAL_BRACKET2 = 0.12;
+  const RATE_FEDERAL_BRACKET3 = 0.22;
+  const RATE_FEDERAL_BRACKET4 = 0.24;
+  const RATE_FEDERAL_BRACKET5 = 0.32;
+  const RATE_FEDERAL_BRACKET6 = 0.35;
+  const RATE_FEDERAL_BRACKET7 = 0.37;
+  const LIMIT_FEDERAL_BRACKET1 = 11600;
+  const LIMIT_FEDERAL_BRACKET2 = 47150;
+  const LIMIT_FEDERAL_BRACKET3 = 100525;
+  const LIMIT_FEDERAL_BRACKET4 = 191950;
+  const LIMIT_FEDERAL_BRACKET5 = 243725;
+  const LIMIT_FEDERAL_BRACKET6 = 609350;
+
   let federalTax = 0;
+
+  if (grossPay > LIMIT_FEDERAL_BRACKET6) {
+    federalTax += RATE_FEDERAL_BRACKET7 * (grossPay - LIMIT_FEDERAL_BRACKET6);
+    grossPay = LIMIT_FEDERAL_BRACKET6;
+  }
+
+  if (grossPay > LIMIT_FEDERAL_BRACKET5) {
+    federalTax += RATE_FEDERAL_BRACKET6 * (grossPay - LIMIT_FEDERAL_BRACKET5);
+    grossPay = LIMIT_FEDERAL_BRACKET5;
+  }
+
+  if (grossPay > LIMIT_FEDERAL_BRACKET4) {
+    federalTax += RATE_FEDERAL_BRACKET5 * (grossPay - LIMIT_FEDERAL_BRACKET4);
+    grossPay = LIMIT_FEDERAL_BRACKET4;
+  }
+
+  if (grossPay > LIMIT_FEDERAL_BRACKET3) {
+    federalTax += RATE_FEDERAL_BRACKET4 * (grossPay - LIMIT_FEDERAL_BRACKET3);
+    grossPay = LIMIT_FEDERAL_BRACKET3;
+  }
+
+  if (grossPay > LIMIT_FEDERAL_BRACKET2) {
+    federalTax += RATE_FEDERAL_BRACKET3 * (grossPay - LIMIT_FEDERAL_BRACKET2);
+    grossPay = LIMIT_FEDERAL_BRACKET2;
+  }
+
+  if (grossPay > LIMIT_FEDERAL_BRACKET1) {
+    federalTax += RATE_FEDERAL_BRACKET2 * (grossPay - LIMIT_FEDERAL_BRACKET1);
+    grossPay = LIMIT_FEDERAL_BRACKET1;
+  }
+
+  federalTax += RATE_FEDERAL_BRACKET1 * grossPay;
 
   return federalTax;
 };
@@ -18,15 +64,20 @@ const calculateWisconsinTax = (grossPay) => {
   let wisconsinTax = 0;
 
   if (grossPay > LIMIT_WISCONSIN_BRACKET3) {
-    wisconsinTax += RATE_WISCONSIN_BRACKET4 * (grossPay - LIMIT_WISCONSIN_BRACKET3);
+    wisconsinTax +=
+      RATE_WISCONSIN_BRACKET4 * (grossPay - LIMIT_WISCONSIN_BRACKET3);
     grossPay = LIMIT_WISCONSIN_BRACKET3;
+  }
 
   if (grossPay > LIMIT_WISCONSIN_BRACKET2) {
-    wisconsinTax += RATE_WISCONSIN_BRACKET3 * (grossPay - LIMIT_WISCONSIN_BRACKET2);
+    wisconsinTax +=
+      RATE_WISCONSIN_BRACKET3 * (grossPay - LIMIT_WISCONSIN_BRACKET2);
     grossPay = LIMIT_WISCONSIN_BRACKET2;
+  }
 
   if (grossPay > LIMIT_WISCONSIN_BRACKET1) {
-    wisconsinTax += RATE_WISCONSIN_BRACKET2 * (grossPay - LIMIT_WISCONSIN_BRACKET1);
+    wisconsinTax +=
+      RATE_WISCONSIN_BRACKET2 * (grossPay - LIMIT_WISCONSIN_BRACKET1);
     grossPay = LIMIT_WISCONSIN_BRACKET1;
   }
 
