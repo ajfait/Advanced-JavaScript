@@ -1,13 +1,13 @@
 "use strict";
 
 const validateInput = () => {
-  let grossPay = document.querySelector("#salary").value;
+  let grossPay = parseFloat(document.querySelector("#salary").value);
   let message;
 
   if (isNaN(grossPay) || grossPay < 1 || grossPay > 999999999) {
     message = "Enter a valid salary between $1 and $999,999,999.";
   } else {
-    message = "Your current salary is $" + grossPay + ".";
+    message = "Your current salary is " + formatUSD(grossPay) + ".";
   }
 
   document.querySelector("#message").innerHTML = message;
@@ -26,7 +26,7 @@ function formatUSD(amount) {
 }
 
 const displayResults = () => {
-  const grossPay = document.querySelector("#salary").value;
+  const grossPay = parseFloat(document.querySelector("#salary").value);
   const federalTax = calculateFederalTax(grossPay);
   const wisconsinTax = calculateWisconsinTax(grossPay);
   const medicareTax = calculateMedicareTax(grossPay);
