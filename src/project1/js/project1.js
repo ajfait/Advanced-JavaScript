@@ -1,5 +1,19 @@
 "use strict";
 
+const validateInput = () => {
+  let salaryInput = document.querySelector("#salary").value;
+
+  let message;
+
+  if (isNaN(salaryInput) || salaryInput < 1 || salaryInput > 999999999) {
+    message = "Enter a valid salary between $1 and $999,999,999.";
+  } else {
+    message = "";
+  }
+
+  console.log("validateInput(): success");
+};
+
 const calculateFederalTax = (grossPay) => {
   const RATE_FEDERAL_BRACKET1 = 0.1;
   const RATE_FEDERAL_BRACKET2 = 0.12;
@@ -136,14 +150,5 @@ const calculateNetPay = (grossPay, totalTax) => {
 };
 
 const init = () => {
-  let grossPay = document.querySelector("#salary").value;
-
-  return grossPay;
-
-  calculateFederalTax(grossPay);
-  calculateWisconsinTax(grossPay);
-  calculateSocialSecurityTax(grossPay);
-  calculateMedicareTax(grossPay);
-  calculateTotalTax(federalTax, wisconsinTax, socialSecurityTax, medicareTax);
-  calculateNetPay(grossPay, totalTax);
+  document.querySelector("#calculate").addEventListener("click", validateInput);
 };
