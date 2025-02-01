@@ -11,6 +11,8 @@ const validateInput = () => {
     message = "Your current salary is $" + grossPay + ".";
   }
 
+  document.querySelector("#message").innerHTML = message;
+
   console.log("validateInput(): success");
   console.log(message);
 
@@ -25,6 +27,14 @@ const validateInput = () => {
     medicareTax
   );
   const netPay = calculateNetPay(grossPay, totalTax);
+
+  document.querySelector("#grossPay").innerHTML = grossPay;
+  document.querySelector("#totalTax").innerHTML = totalTax;
+  document.querySelector("#federalTax").innerHTML = federalTax;
+  document.querySelector("#wisconsinTax").innerHTML = wisconsinTax;
+  document.querySelector("#medicareTax").innerHTML = medicareTax;
+  document.querySelector("#socialSecurityTax").innerHTML = socialSecurityTax;
+  document.querySelector("#netPay").innerHTML = netPay;
 };
 
 const calculateFederalTax = (grossPay) => {
