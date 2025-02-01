@@ -2,7 +2,6 @@
 
 const validateInput = () => {
   let grossPay = document.querySelector("#salary").value;
-
   let message;
 
   if (isNaN(grossPay) || grossPay < 1 || grossPay > 999999999) {
@@ -16,6 +15,11 @@ const validateInput = () => {
   console.log("validateInput(): success");
   console.log(message);
 
+  displayResults();
+};
+
+const displayResults = () => {
+  const grossPay = document.querySelector("#salary").value;
   const federalTax = calculateFederalTax(grossPay);
   const wisconsinTax = calculateWisconsinTax(grossPay);
   const medicareTax = calculateMedicareTax(grossPay);
@@ -23,8 +27,8 @@ const validateInput = () => {
   const totalTax = calculateTotalTax(
     federalTax,
     wisconsinTax,
-    socialSecurityTax,
-    medicareTax
+    medicareTax,
+    socialSecurityTax
   );
   const netPay = calculateNetPay(grossPay, totalTax);
 
@@ -166,10 +170,10 @@ const calculateSocialSecurityTax = (grossPay) => {
 const calculateTotalTax = (
   federalTax,
   wisconsinTax,
-  socialSecurityTax,
-  medicareTax
+  medicareTax,
+  socialSecurityTax
 ) => {
-  let totalTax = federalTax + wisconsinTax + socialSecurityTax + medicareTax;
+  let totalTax = federalTax + wisconsinTax + medicareTax + socialSecurityTax;
 
   console.log(totalTax);
 
