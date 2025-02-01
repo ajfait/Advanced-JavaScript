@@ -15,11 +15,13 @@ const validateInput = () => {
     message = "Enter a valid salary between $1 and $999,999,999.";
 
     document.querySelector("#message").innerHTML = message;
-    document.querySelector("#message").classList.remove("invisible");
+    document.querySelector("#message").classList.remove("d-none");
+
     console.log(message);
+
     return;
   } else {
-    document.querySelector("#message").classList.add("invisible");
+    document.querySelector("#message").classList.add("d-none");
   }
 
   console.log("validateInput(): success");
