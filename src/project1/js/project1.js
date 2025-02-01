@@ -1,17 +1,30 @@
 "use strict";
 
 const validateInput = () => {
-  let salaryInput = document.querySelector("#salary").value;
+  let grossPay = document.querySelector("#salary").value;
 
   let message;
 
-  if (isNaN(salaryInput) || salaryInput < 1 || salaryInput > 999999999) {
+  if (isNaN(grossPay) || grossPay < 1 || grossPay > 999999999) {
     message = "Enter a valid salary between $1 and $999,999,999.";
   } else {
-    message = "";
+    message = "Your current salary is $" + grossPay + ".";
   }
 
   console.log("validateInput(): success");
+  console.log(message);
+
+  const federalTax = calculateFederalTax(grossPay);
+  const wisconsinTax = calculateWisconsinTax(grossPay);
+  const medicareTax = calculateMedicareTax(grossPay);
+  const socialSecurityTax = calculateSocialSecurityTax(grossPay);
+  const totalTax = calculateTotalTax(
+    federalTax,
+    wisconsinTax,
+    socialSecurityTax,
+    medicareTax
+  );
+  const netPay = calculateNetPay(grossPay, totalTax);
 };
 
 const calculateFederalTax = (grossPay) => {
@@ -63,6 +76,8 @@ const calculateFederalTax = (grossPay) => {
 
   federalTax += RATE_FEDERAL_BRACKET1 * grossPay;
 
+  console.log(federalTax);
+
   return federalTax;
 };
 
@@ -97,6 +112,8 @@ const calculateWisconsinTax = (grossPay) => {
 
   wisconsinTax += RATE_WISCONSIN_BRACKET1 * grossPay;
 
+  console.log(wisconsinTax);
+
   return wisconsinTax;
 };
 
@@ -114,11 +131,13 @@ const calculateMedicareTax = (grossPay) => {
     medicareTax = RATE_MEDICARE_LOWER * grossPay;
   }
 
+  console.log(medicareTax);
+
   return medicareTax;
 };
 
 const calculateSocialSecurityTax = (grossPay) => {
-  const RATE_SOCIAL_SECURITY = 0.62;
+  const RATE_SOCIAL_SECURITY = 0.062;
   const LIMIT_SOCIAL_SECURITY = 168600;
 
   let socialSecurityTax = 0;
@@ -128,6 +147,8 @@ const calculateSocialSecurityTax = (grossPay) => {
   } else {
     socialSecurityTax = RATE_SOCIAL_SECURITY * grossPay;
   }
+
+  console.log(socialSecurityTax);
 
   return socialSecurityTax;
 };
@@ -140,11 +161,15 @@ const calculateTotalTax = (
 ) => {
   let totalTax = federalTax + wisconsinTax + socialSecurityTax + medicareTax;
 
+  console.log(totalTax);
+
   return totalTax;
 };
 
 const calculateNetPay = (grossPay, totalTax) => {
   let netPay = grossPay - totalTax;
+
+  console.log(netPay);
 
   return netPay;
 };
