@@ -1,7 +1,12 @@
 "use strict";
 
 const validateInput = () => {
-  let grossPay = parseFloat(document.querySelector("#salary").value);
+  let grossPayString = document.querySelector("#salary").value;
+
+  let grossPayCleaned = grossPayString.replace(/[\$,]/g, "");
+
+  let grossPay = parseFloat(grossPayCleaned);
+
   let message;
 
   document.querySelector("#salary").value = "";
@@ -18,6 +23,7 @@ const validateInput = () => {
   }
 
   console.log("validateInput(): success");
+  console.log(grossPay);
 
   displayResults(grossPay);
 };

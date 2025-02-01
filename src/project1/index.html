@@ -29,13 +29,14 @@
             </div>
             <div class="container mt-3">
               <form class="form-floating">
+                <!-- Credit to Evan Weigel for RegEx -->
                 <input
-                  type="number"
+                  type="text"
                   class="form-control"
                   id="salary"
                   min="0"
                   max="999999999"
-                  pattern="^\d*$"
+                  pattern="^\$?((\d{1,3}(,\d{3})*)|(\d+))(\.\d{1,2})?$"
                 />
                 <label for="salary">Gross Annual Salary</label>
                 <div class="container mt-3">
