@@ -18,6 +18,13 @@ const validateInput = () => {
   displayResults();
 };
 
+function formatUSD(amount) {
+  return amount.toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+}
+
 const displayResults = () => {
   const grossPay = document.querySelector("#salary").value;
   const federalTax = calculateFederalTax(grossPay);
@@ -32,13 +39,14 @@ const displayResults = () => {
   );
   const netPay = calculateNetPay(grossPay, totalTax);
 
-  document.querySelector("#grossPay").innerHTML = grossPay;
-  document.querySelector("#totalTax").innerHTML = totalTax;
-  document.querySelector("#federalTax").innerHTML = federalTax;
-  document.querySelector("#wisconsinTax").innerHTML = wisconsinTax;
-  document.querySelector("#medicareTax").innerHTML = medicareTax;
-  document.querySelector("#socialSecurityTax").innerHTML = socialSecurityTax;
-  document.querySelector("#netPay").innerHTML = netPay;
+  document.querySelector("#grossPay").innerHTML = formatUSD(grossPay);
+  document.querySelector("#totalTax").innerHTML = formatUSD(totalTax);
+  document.querySelector("#federalTax").innerHTML = formatUSD(federalTax);
+  document.querySelector("#wisconsinTax").innerHTML = formatUSD(wisconsinTax);
+  document.querySelector("#medicareTax").innerHTML = formatUSD(medicareTax);
+  document.querySelector("#socialSecurityTax").innerHTML =
+    formatUSD(socialSecurityTax);
+  document.querySelector("#netPay").innerHTML = formatUSD(netPay);
 };
 
 const calculateFederalTax = (grossPay) => {
