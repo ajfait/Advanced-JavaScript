@@ -48,3 +48,5 @@ const displayMessage = () => {
   // Appends message to the body of the page
   document.body.appendChild(message);
 };
+
+window.onload = init;
