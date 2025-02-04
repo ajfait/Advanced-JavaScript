@@ -12,4 +12,9 @@ const init = () => {
   let button = document.createElement("button");
   button.setAttribute("type", "button");
   button.innerHTML = "Click Me";
+
+  div.appendChild(input);
+  div.appendChild(button);
+  form.appendChild(div);
+  document.body.appendChild(form);
 };
