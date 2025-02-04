@@ -210,3 +210,5 @@ const calculateNetPay = (grossPay, totalTax) => {
 const init = () => {
   document.querySelector("#calculate").addEventListener("click", validateInput);
 };
+
+window.onload = init;
