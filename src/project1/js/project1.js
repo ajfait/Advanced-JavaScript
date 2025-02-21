@@ -215,7 +215,7 @@ const calculateMedicareTax = (grossPay) => {
  *
  */
 const calculateSocialSecurityTax = (grossPay) => {
-  let socialSecurityBrackets = [{ rate: 0.062 }, { limit: 168600 }];
+  let socialSecurityBrackets = [{ rate: 0.062, limit: 168600 }];
   let socialSecurityTax = 0;
 
   if (grossPay > socialSecurityBrackets[0].limit) {
