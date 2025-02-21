@@ -61,53 +61,54 @@ const displayResults = (grossPay) => {
 };
 
 const calculateFederalTax = (grossPay) => {
-  const RATE_FEDERAL_BRACKET1 = 0.1;
-  const RATE_FEDERAL_BRACKET2 = 0.12;
-  const RATE_FEDERAL_BRACKET3 = 0.22;
-  const RATE_FEDERAL_BRACKET4 = 0.24;
-  const RATE_FEDERAL_BRACKET5 = 0.32;
-  const RATE_FEDERAL_BRACKET6 = 0.35;
-  const RATE_FEDERAL_BRACKET7 = 0.37;
-  const LIMIT_FEDERAL_BRACKET1 = 11600;
-  const LIMIT_FEDERAL_BRACKET2 = 47150;
-  const LIMIT_FEDERAL_BRACKET3 = 100525;
-  const LIMIT_FEDERAL_BRACKET4 = 191950;
-  const LIMIT_FEDERAL_BRACKET5 = 243725;
-  const LIMIT_FEDERAL_BRACKET6 = 609350;
-
+  let federalTaxBrackets = [
+    { rate: 0.1, limit: 11600 },
+    { rate: 0.12, limit: 47150 },
+    { rate: 0.22, limit: 100525 },
+    { rate: 0.24, limit: 191950 },
+    { rate: 0.32, limit: 243725 },
+    { rate: 0.35, limit: 609350 },
+    { rate: 0.37, limit: 609350 },
+  ];
   let federalTax = 0;
 
-  if (grossPay > LIMIT_FEDERAL_BRACKET6) {
-    federalTax += RATE_FEDERAL_BRACKET7 * (grossPay - LIMIT_FEDERAL_BRACKET6);
-    grossPay = LIMIT_FEDERAL_BRACKET6;
+  if (grossPay > federalTaxBrackets[5].limit) {
+    federalTax +=
+      federalTaxBrackets[6].rate * (grossPay - federalTaxBrackets[5].limit);
+    grossPay = federalTaxBrackets[5].limit;
   }
 
-  if (grossPay > LIMIT_FEDERAL_BRACKET5) {
-    federalTax += RATE_FEDERAL_BRACKET6 * (grossPay - LIMIT_FEDERAL_BRACKET5);
-    grossPay = LIMIT_FEDERAL_BRACKET5;
+  if (grossPay > federalTaxBrackets[4].limit) {
+    federalTax +=
+      federalTaxBrackets[5].rate * (grossPay - federalTaxBrackets[4].limit);
+    grossPay = federalTaxBrackets[4].limit;
   }
 
-  if (grossPay > LIMIT_FEDERAL_BRACKET4) {
-    federalTax += RATE_FEDERAL_BRACKET5 * (grossPay - LIMIT_FEDERAL_BRACKET4);
-    grossPay = LIMIT_FEDERAL_BRACKET4;
+  if (grossPay > federalTaxBrackets[3].limit) {
+    federalTax +=
+      federalTaxBrackets[4].rate * (grossPay - federalTaxBrackets[3].limit);
+    grossPay = federalTaxBrackets[3].limit;
   }
 
-  if (grossPay > LIMIT_FEDERAL_BRACKET3) {
-    federalTax += RATE_FEDERAL_BRACKET4 * (grossPay - LIMIT_FEDERAL_BRACKET3);
-    grossPay = LIMIT_FEDERAL_BRACKET3;
+  if (grossPay > federalTaxBrackets[2].limit) {
+    federalTax +=
+      federalTaxBrackets[3].rate * (grossPay - federalTaxBrackets[2].limit);
+    grossPay = federalTaxBrackets[2].limit;
   }
 
-  if (grossPay > LIMIT_FEDERAL_BRACKET2) {
-    federalTax += RATE_FEDERAL_BRACKET3 * (grossPay - LIMIT_FEDERAL_BRACKET2);
-    grossPay = LIMIT_FEDERAL_BRACKET2;
+  if (grossPay > federalTaxBrackets[1].limit) {
+    federalTax +=
+      federalTaxBrackets[2].rate * (grossPay - federalTaxBrackets[1].limit);
+    grossPay = federalTaxBrackets[1].limit;
   }
 
-  if (grossPay > LIMIT_FEDERAL_BRACKET1) {
-    federalTax += RATE_FEDERAL_BRACKET2 * (grossPay - LIMIT_FEDERAL_BRACKET1);
-    grossPay = LIMIT_FEDERAL_BRACKET1;
+  if (grossPay > federalTaxBrackets[0].limit) {
+    federalTax +=
+      federalTaxBrackets[1].rate * (grossPay - federalTaxBrackets[0].limit);
+    grossPay = federalTaxBrackets[0].limit;
   }
 
-  federalTax += RATE_FEDERAL_BRACKET1 * grossPay;
+  federalTax += federalTaxBrackets[0].rate * grossPay;
 
   console.log(federalTax);
 
@@ -115,35 +116,33 @@ const calculateFederalTax = (grossPay) => {
 };
 
 const calculateWisconsinTax = (grossPay) => {
-  const RATE_WISCONSIN_BRACKET1 = 0.0354;
-  const RATE_WISCONSIN_BRACKET2 = 0.0465;
-  const RATE_WISCONSIN_BRACKET3 = 0.053;
-  const RATE_WISCONSIN_BRACKET4 = 0.0765;
-  const LIMIT_WISCONSIN_BRACKET1 = 12760;
-  const LIMIT_WISCONSIN_BRACKET2 = 25520;
-  const LIMIT_WISCONSIN_BRACKET3 = 280950;
-
+  let wisconsinTaxBrackts = [
+    { rate: 0.0354, limit: 12760 },
+    { rate: 0.0465, limit: 25520 },
+    { rate: 0.053, limit: 280950 },
+    { rate: 0.0765, limit: 280950 },
+  ];
   let wisconsinTax = 0;
 
-  if (grossPay > LIMIT_WISCONSIN_BRACKET3) {
+  if (grossPay > wisconsinTaxBrackts[2].limit) {
     wisconsinTax +=
-      RATE_WISCONSIN_BRACKET4 * (grossPay - LIMIT_WISCONSIN_BRACKET3);
-    grossPay = LIMIT_WISCONSIN_BRACKET3;
+      wisconsinTaxBrackts[3].rate * (grossPay - wisconsinTaxBrackts[2].limit);
+    grossPay = wisconsinTaxBrackts[2].limit;
   }
 
-  if (grossPay > LIMIT_WISCONSIN_BRACKET2) {
+  if (grossPay > wisconsinTaxBrackts[1].limit) {
     wisconsinTax +=
-      RATE_WISCONSIN_BRACKET3 * (grossPay - LIMIT_WISCONSIN_BRACKET2);
-    grossPay = LIMIT_WISCONSIN_BRACKET2;
+      wisconsinTaxBrackts[2].rate * (grossPay - wisconsinTaxBrackts[1].limit);
+    grossPay = wisconsinTaxBrackts[1].limit;
   }
 
-  if (grossPay > LIMIT_WISCONSIN_BRACKET1) {
+  if (grossPay > wisconsinTaxBrackts[0].limit) {
     wisconsinTax +=
-      RATE_WISCONSIN_BRACKET2 * (grossPay - LIMIT_WISCONSIN_BRACKET1);
-    grossPay = LIMIT_WISCONSIN_BRACKET1;
+      wisconsinTaxBrackts[1].rate * (grossPay - wisconsinTaxBrackts[0].limit);
+    grossPay = wisconsinTaxBrackts[0].limit;
   }
 
-  wisconsinTax += RATE_WISCONSIN_BRACKET1 * grossPay;
+  wisconsinTax += wisconsinTaxBrackts[0].rate * grossPay;
 
   console.log(wisconsinTax);
 
@@ -151,17 +150,18 @@ const calculateWisconsinTax = (grossPay) => {
 };
 
 const calculateMedicareTax = (grossPay) => {
-  const RATE_MEDICARE_LOWER = 0.0145;
-  const RATE_MEDICARE_UPPER = 0.0235;
-  const LIMIT_MEDICARE = 200000;
-
+  let medicareTaxBrackets = [
+    { rate: 0.0145, limit: 200000 },
+    { rate: 0.0235, limit: 200000 },
+  ];
   let medicareTax = 0;
 
-  if (grossPay > LIMIT_MEDICARE) {
-    medicareTax = RATE_MEDICARE_LOWER * LIMIT_MEDICARE;
-    medicareTax += RATE_MEDICARE_UPPER * (grossPay - LIMIT_MEDICARE);
+  if (grossPay > medicareTaxBrackets[0].limit) {
+    medicareTax = medicareTaxBrackets[0].rate * medicareTaxBrackets[0].limit;
+    medicareTax +=
+      medicareTaxBrackets[1].rate * (grossPay - medicareTaxBrackets[1].limit);
   } else {
-    medicareTax = RATE_MEDICARE_LOWER * grossPay;
+    medicareTax = medicareTaxBrackets[0].rate * grossPay;
   }
 
   console.log(medicareTax);
@@ -170,15 +170,14 @@ const calculateMedicareTax = (grossPay) => {
 };
 
 const calculateSocialSecurityTax = (grossPay) => {
-  const RATE_SOCIAL_SECURITY = 0.062;
-  const LIMIT_SOCIAL_SECURITY = 168600;
-
+  let socialSecurityBrackets = [{ rate: 0.062 }, { limit: 168600 }];
   let socialSecurityTax = 0;
 
-  if (grossPay > LIMIT_SOCIAL_SECURITY) {
-    socialSecurityTax = RATE_SOCIAL_SECURITY * LIMIT_SOCIAL_SECURITY;
+  if (grossPay > socialSecurityBrackets[0].limit) {
+    socialSecurityTax =
+      socialSecurityBrackets[0].rate * socialSecurityBrackets[0].limit;
   } else {
-    socialSecurityTax = RATE_SOCIAL_SECURITY * grossPay;
+    socialSecurityTax = socialSecurityBrackets[0].rate * grossPay;
   }
 
   console.log(socialSecurityTax);
