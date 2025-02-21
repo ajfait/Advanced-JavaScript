@@ -1,5 +1,20 @@
+/*
+ * Alison Fait
+ * Online
+ * ajfait@madisoncollege.edu
+ *
+ */
+
 "use strict";
 
+/*
+ * This function selects the gross pay input from the HTML form and
+ * uses a regular expression to clean out any dollar signs or commas.
+ * It also validates the input to make sure the gross pay is a valid
+ * number between $1 and $999,999,999. It returns an error message
+ * if the input is invalid.
+ *
+ */
 const validateInput = () => {
   let grossPayString = document.querySelector("#salary").value;
 
@@ -30,6 +45,11 @@ const validateInput = () => {
   displayResults(grossPay);
 };
 
+/*
+ * This function formats the amounts in the HTML results table as
+ * US currency (e.g. $50,000.00).
+ *
+ */
 function formatUSD(amount) {
   return amount.toLocaleString("en-US", {
     style: "currency",
@@ -37,6 +57,11 @@ function formatUSD(amount) {
   });
 }
 
+/*
+ * This function calls the formatUSD function and displays the
+ * calculated tax amounts in the HTML results table.
+ *
+ */
 const displayResults = (grossPay) => {
   const federalTax = calculateFederalTax(grossPay);
   const wisconsinTax = calculateWisconsinTax(grossPay);
@@ -60,6 +85,11 @@ const displayResults = (grossPay) => {
   document.querySelector("#netPay").innerHTML = formatUSD(netPay);
 };
 
+/*
+ * This function calculates the federal taxes based on the
+ * 2024 tax brackets.
+ *
+ */
 const calculateFederalTax = (grossPay) => {
   let federalTaxBrackets = [
     { rate: 0.1, limit: 11600 },
@@ -115,6 +145,11 @@ const calculateFederalTax = (grossPay) => {
   return federalTax;
 };
 
+/*
+ * This function calculates the Wisconsin taxes based on the
+ * 2024 tax brackets.
+ *
+ */
 const calculateWisconsinTax = (grossPay) => {
   let wisconsinTaxBrackts = [
     { rate: 0.0354, limit: 12760 },
@@ -149,6 +184,11 @@ const calculateWisconsinTax = (grossPay) => {
   return wisconsinTax;
 };
 
+/*
+ * This function calculates the medicare taxes based on the
+ * 2024 tax brackets.
+ *
+ */
 const calculateMedicareTax = (grossPay) => {
   let medicareTaxBrackets = [
     { rate: 0.0145, limit: 200000 },
@@ -169,6 +209,11 @@ const calculateMedicareTax = (grossPay) => {
   return medicareTax;
 };
 
+/*
+ * This function calculates the social security taxes based on the
+ * 2024 tax brackets.
+ *
+ */
 const calculateSocialSecurityTax = (grossPay) => {
   let socialSecurityBrackets = [{ rate: 0.062 }, { limit: 168600 }];
   let socialSecurityTax = 0;
@@ -185,6 +230,11 @@ const calculateSocialSecurityTax = (grossPay) => {
   return socialSecurityTax;
 };
 
+/*
+ * This function calculates the total tax based on the
+ * 2024 tax brackets.
+ *
+ */
 const calculateTotalTax = (
   federalTax,
   wisconsinTax,
@@ -198,6 +248,10 @@ const calculateTotalTax = (
   return totalTax;
 };
 
+/*
+ * This function calculates the net pay.
+ *
+ */
 const calculateNetPay = (grossPay, totalTax) => {
   let netPay = grossPay - totalTax;
 
@@ -206,8 +260,14 @@ const calculateNetPay = (grossPay, totalTax) => {
   return netPay;
 };
 
+/*
+ * This function begins the application when the user clicks
+ * on the Calculate Taxes CTA.
+ *
+ */
 const init = () => {
   document.querySelector("#calculate").addEventListener("click", validateInput);
 };
 
+// Kicks off the init method when the page is fully loaded.
 window.onload = init;
