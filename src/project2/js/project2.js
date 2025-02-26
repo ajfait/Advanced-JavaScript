@@ -1,13 +1,52 @@
 "use strict";
 
 const username = "ajfait";
+const WIND_SPEED_LIMIT = 15;
+const TEMPERATURE_LIMIT = 83;
 
 const init = () => {
   let weatherButton = document.querySelector("#getWeather");
   weatherButton.addEventListener("click", getLocation);
 };
 
+const createImage = (src, alt, className) => {
+  const image = document.createElement("img");
+  image.src = src;
+  image.alt = alt;
+  image.className = className;
+  return image;
+};
+
+const displayResults = () => {
+  document.querySelector("#weatherResults").classList.remove("visually-hidden");
+  document.querySelector("#zip").value = "";
+};
+
+const convertTemperature = (temperature) => {
+  const CONVERSION_FACTOR = 1.8;
+  const OFFSET = 32;
+
+  let temperatureFahrenheit = temperature * CONVERSION_FACTOR + OFFSET;
+  console.log(`Temperature (Fahrenheit): ${temperatureFahrenheit}`);
+
+  const image = createImage(
+    "images/thermometer-sun.svg",
+    "Thermometer Sun Icon",
+    "ps-2"
+  );
+
+  document.querySelector("#temperatureFahrenheit").innerHTML =
+    temperatureFahrenheit;
+  if (temperatureFahrenheit > TEMPERATURE_LIMIT) {
+    document.querySelector("#temperatureFahrenheit").appendChild(image);
+  }
+
+  return temperatureFahrenheit;
+};
+
 const getWeather = (lat, lng) => {
+  const image = createImage("images/wind.svg", "Wind Icon", "ps-2");
+
   let xhr = new XMLHttpRequest();
   let url = `https://secure.geonames.org/findNearByWeatherJSON?username=${username}&lat=${lat}&lng=${lng}`;
 
@@ -25,14 +64,13 @@ const getWeather = (lat, lng) => {
       console.log(`Wind Speed: ${windSpeed}`);
 
       document.querySelector("#windSpeed").innerHTML = windSpeed;
+      if (windSpeed > WIND_SPEED_LIMIT) {
+        document.querySelector("#windSpeed").appendChild(image);
+      }
 
       convertTemperature(temperature);
 
-      document
-        .querySelector("#weatherResults")
-        .classList.remove("visually-hidden");
-
-      document.querySelector("#zip").value = "";
+      displayResults();
     }
   };
 
@@ -66,21 +104,6 @@ const getLocation = () => {
   };
 
   xhr.send(null);
-};
-
-const convertTemperature = (temperature) => {
-  //°F = (°C × 9/5) + 32
-  const CONVERSION_FACTOR = 1.8;
-  const OFFSET = 32;
-
-  let temperatureFahrenheit = temperature * CONVERSION_FACTOR + OFFSET;
-
-  console.log(`Temperature (Fahrenheit): ${temperatureFahrenheit}`);
-
-  document.querySelector("#temperatureFahrenheit").innerHTML =
-    temperatureFahrenheit;
-
-  return temperatureFahrenheit;
 };
 
 window.onload = init;
