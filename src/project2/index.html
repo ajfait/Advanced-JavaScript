@@ -26,26 +26,56 @@
   </head>
   <body>
     <!-- Zip Code Entry Form -->
-    <form method="GET">
-      <label for="zip">Zip Code:</label>
-      <input type="text" id="zip" />
-      <button type="button" id="getWeather">Get Weather</button>
-    </form>
+    <div class="container pt-5">
+      <div class="col-md-4 offset-md-4">
+        <form method="GET">
+          <div class="container">
+            <label for="zip" class="form-label">Zip Code:</label>
+          </div>
+          <div class="container pb-3">
+            <input type="text" class="form-control" id="zip" />
+          </div>
+          <div class="container">
+            <button type="button" class="btn btn-dark" id="getWeather">
+              Get Weather
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
     <!-- END Zip Code Entry Form -->
 
     <!-- Weather Data Results Table -->
-    <table class="visually-hidden" id="weatherResults">
-      <tr>
-        <th>City</th>
-        <th>Temperature</th>
-        <th>Wind Speed</th>
-      </tr>
-      <tr>
-        <td id="city"></td>
-        <td id="temperatureFahrenheit"></td>
-        <td id="windSpeed"></td>
-      </tr>
-    </table>
+    <div class="container py-5">
+      <div class="col-md-6 offset-md-3">
+        <table
+          class="visually-hidden table table-bordered table-hover"
+          id="weatherResults"
+        >
+          <thead>
+            <tr scope="row">
+              <th scope="col" colspan="2" class="text-center text-bg-dark">
+                Current Weather
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr scope="row">
+              <th scope="col">City</th>
+              <td scope="col" id="city"></td>
+            </tr>
+            <tr scope="row">
+              <th scope="col">Temperature</th>
+              <td scope="col" id="temperatureFahrenheit"></td>
+            </tr>
+            <tr scope="row">
+              <th scope="col">Wind Speed</th>
+              <td scope="col" id="windSpeed"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <!-- END Weather Data Results Table -->
   </body>
 </html>
