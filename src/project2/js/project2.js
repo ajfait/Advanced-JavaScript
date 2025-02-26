@@ -27,6 +27,12 @@ const getWeather = (lat, lng) => {
       document.querySelector("#windSpeed").innerHTML = windSpeed;
 
       convertTemperature(temperature);
+
+      document
+        .querySelector("#weatherResults")
+        .classList.remove("visually-hidden");
+
+      document.querySelector("#zip").value = "";
     }
   };
 
