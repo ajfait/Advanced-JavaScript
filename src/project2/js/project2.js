@@ -26,7 +26,9 @@ const convertTemperature = (temperature) => {
   const CONVERSION_FACTOR = 1.8;
   const OFFSET = 32;
 
-  let temperatureFahrenheit = temperature * CONVERSION_FACTOR + OFFSET;
+  let temperatureFahrenheit = Math.round(
+    temperature * CONVERSION_FACTOR + OFFSET
+  );
   console.log(`Temperature (Fahrenheit): ${temperatureFahrenheit}`);
 
   const image = createImage(
@@ -58,7 +60,7 @@ const getWeather = (lat, lng) => {
 
       let data = JSON.parse(xhr.responseText);
       let temperature = data.weatherObservation.temperature;
-      let windSpeed = data.weatherObservation.windSpeed;
+      let windSpeed = Math.round(data.weatherObservation.windSpeed);
 
       console.log(`Temperature (Celsius): ${temperature}`);
       console.log(`Wind Speed: ${windSpeed}`);
@@ -97,7 +99,8 @@ const getLocation = () => {
       console.log(`Latitude: ${lat}`);
       console.log(`Longitude: ${lng}`);
 
-      document.querySelector("#city").innerHTML = city;
+      document.querySelector("#weatherHeading").innerHTML =
+        "Current Weather for " + city;
 
       getWeather(lat, lng);
     }
