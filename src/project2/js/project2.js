@@ -24,6 +24,8 @@ const getWeather = (lat, lng) => {
       console.log(`Temperature (Celsius): ${temperature}`);
       console.log(`Wind Speed: ${windSpeed}`);
 
+      document.querySelector("#windSpeed").innerHTML = windSpeed;
+
       convertTemperature(temperature);
     }
   };
@@ -51,6 +53,8 @@ const getLocation = () => {
       console.log(`Latitude: ${lat}`);
       console.log(`Longitude: ${lng}`);
 
+      document.querySelector("#city").innerHTML = city;
+
       getWeather(lat, lng);
     }
   };
@@ -66,6 +70,9 @@ const convertTemperature = (temperature) => {
   let temperatureFahrenheit = temperature * CONVERSION_FACTOR + OFFSET;
 
   console.log(`Temperature (Fahrenheit): ${temperatureFahrenheit}`);
+
+  document.querySelector("#temperatureFahrenheit").innerHTML =
+    temperatureFahrenheit;
 
   return temperatureFahrenheit;
 };
