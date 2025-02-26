@@ -19,8 +19,10 @@ const getWeather = (lat, lng) => {
 
       let data = JSON.parse(xhr.responseText);
       let temperature = data.weatherObservation.temperature;
+      let windSpeed = data.weatherObservation.windSpeed;
 
       console.log(`Temperature (Celsius): ${temperature}`);
+      console.log(`Wind Speed: ${windSpeed}`);
 
       convertTemperature(temperature);
     }
@@ -41,9 +43,11 @@ const getLocation = () => {
   xhr.onreadystatechange = () => {
     if (xhr.readyState == 4) {
       let data = JSON.parse(xhr.responseText);
+      let city = data.postalCodes[0].placeName;
       let lat = data.postalCodes[0].lat;
       let lng = data.postalCodes[0].lng;
 
+      console.log(`City: ${city}`);
       console.log(`Latitude: ${lat}`);
       console.log(`Longitude: ${lng}`);
 
