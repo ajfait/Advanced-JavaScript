@@ -1,8 +1,10 @@
 "use strict";
 
 const username = "ajfait";
-const WIND_SPEED_LIMIT = 15;
-const TEMPERATURE_LIMIT = 83;
+const countrycode = "US";
+const cold = 34;
+const hot = 83;
+const wind = 15;
 
 const init = () => {
   let weatherButton = document.querySelector("#getWeather");
@@ -23,52 +25,62 @@ const displayResults = () => {
 };
 
 const convertTemperature = (temperature) => {
-  const CONVERSION_FACTOR = 1.8;
-  const OFFSET = 32;
-
-  let temperatureFahrenheit = Math.round(
-    temperature * CONVERSION_FACTOR + OFFSET
+  const iconCold = createImage(
+    "images/thermometer-snow.svg",
+    "Thermometer Snow Icon",
+    "ps-2"
   );
-  console.log(`Temperature (Fahrenheit): ${temperatureFahrenheit}`);
 
-  const image = createImage(
+  const iconHot = createImage(
     "images/thermometer-sun.svg",
     "Thermometer Sun Icon",
     "ps-2"
   );
 
+  const conversionFactor = 1.8;
+  const offset = 32;
+
+  let temperatureFahrenheit = Math.round(
+    temperature * conversionFactor + offset
+  );
+
   document.querySelector("#temperatureFahrenheit").innerHTML =
     temperatureFahrenheit;
-  if (temperatureFahrenheit > TEMPERATURE_LIMIT) {
-    document.querySelector("#temperatureFahrenheit").appendChild(image);
+  if (temperatureFahrenheit >= hot) {
+    document.querySelector("#temperatureFahrenheit").appendChild(iconHot);
   }
+  if (temperatureFahrenheit <= cold) {
+    document.querySelector("#temperatureFahrenheit").appendChild(iconCold);
+  }
+
+  console.log(`Temperature (Fahrenheit): ${temperatureFahrenheit}`);
 
   return temperatureFahrenheit;
 };
 
 const getWeather = (lat, lng) => {
-  const image = createImage("images/wind.svg", "Wind Icon", "ps-2");
+  const iconWind = createImage("images/wind.svg", "Wind Icon", "ps-2");
 
   let xhr = new XMLHttpRequest();
   let url = `https://secure.geonames.org/findNearByWeatherJSON?username=${username}&lat=${lat}&lng=${lng}`;
+
+  console.log(url);
 
   xhr.open("get", url);
 
   xhr.onreadystatechange = () => {
     if (xhr.readyState == 4) {
-      console.log(url);
-
       let data = JSON.parse(xhr.responseText);
       let temperature = data.weatherObservation.temperature;
       let windSpeed = Math.round(data.weatherObservation.windSpeed);
 
-      console.log(`Temperature (Celsius): ${temperature}`);
-      console.log(`Wind Speed: ${windSpeed}`);
-
       document.querySelector("#windSpeed").innerHTML = windSpeed;
-      if (windSpeed > WIND_SPEED_LIMIT) {
-        document.querySelector("#windSpeed").appendChild(image);
+      if (windSpeed > wind) {
+        document.querySelector("#windSpeed").appendChild(iconWind);
       }
+
+      console.log(`Wind Speed: ${windSpeed}`);
+      console.log(`Temperature (Celsius): ${temperature}`);
 
       convertTemperature(temperature);
 
@@ -82,7 +94,7 @@ const getWeather = (lat, lng) => {
 const getLocation = () => {
   let xhr = new XMLHttpRequest();
   let zip = document.querySelector("#zip").value;
-  let url = `https://secure.geonames.org/postalCodeSearchJSON?username=${username}&postalcode=${zip}`;
+  let url = `https://secure.geonames.org/postalCodeSearchJSON?username=${username}&postalcode=${zip}&countrycode=${countrycode}`;
 
   console.log(url);
 
@@ -95,12 +107,12 @@ const getLocation = () => {
       let lat = data.postalCodes[0].lat;
       let lng = data.postalCodes[0].lng;
 
+      document.querySelector("#weatherHeading").innerHTML =
+        "Current Weather for " + city;
+
       console.log(`City: ${city}`);
       console.log(`Latitude: ${lat}`);
       console.log(`Longitude: ${lng}`);
-
-      document.querySelector("#weatherHeading").innerHTML =
-        "Current Weather for " + city;
 
       getWeather(lat, lng);
     }
