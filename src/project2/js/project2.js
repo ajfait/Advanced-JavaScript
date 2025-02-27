@@ -1,16 +1,34 @@
+/*
+ * Alison Fait
+ * Online
+ * ajfait@madisoncollege.edu
+ *
+ */
+
 "use strict";
 
+// Constants
 const username = "ajfait";
 const countrycode = "US";
 const cold = 34;
 const hot = 83;
 const wind = 15;
 
+/*
+ * This function begins the application when the user clicks
+ * on the Get Weather CTA.
+ *
+ */
 const init = () => {
   let weatherButton = document.querySelector("#getWeather");
   weatherButton.addEventListener("click", getLocation);
 };
 
+/*
+ * This function creates a generic image element including
+ * image source, alt text, and CSS class name.
+ *
+ */
 const createImage = (src, alt, className) => {
   const image = document.createElement("img");
   image.src = src;
@@ -19,11 +37,24 @@ const createImage = (src, alt, className) => {
   return image;
 };
 
+/*
+ * This function displays the results of the current weather
+ * by removing the visually-hidden class name from the results
+ * table and clearing the zip code input field.
+ *
+ */
 const displayResults = () => {
   document.querySelector("#weatherResults").classList.remove("visually-hidden");
   document.querySelector("#zip").value = "";
 };
 
+/*
+ * This function converts the temperature from celsius to
+ * fahrenheit using the formula °F = (°C × 9/5) + 32. It creates
+ * the cold and hot icon image elements. It appends the temperature
+ * in fahrenheit to the table, as well as the applicable icon.
+ *
+ */
 const convertTemperature = (temperature) => {
   const iconCold = createImage(
     "images/thermometer-snow.svg",
@@ -58,6 +89,15 @@ const convertTemperature = (temperature) => {
   return temperatureFahrenheit;
 };
 
+/*
+ * This function makes an HTTP request to the GeoNames website to
+ * get the current temperature and wind speed for a given location
+ * based on the latitude and longitude passed into the URL as query
+ * parameters from the getLocation function. It creates the wind
+ * speed icon image element. It appends the current wind speed to
+ * the results table, as well as the wind icon if applicable.
+ *
+ */
 const getWeather = (lat, lng) => {
   const iconWind = createImage("images/wind.svg", "Wind Icon", "ps-2");
 
@@ -91,6 +131,13 @@ const getWeather = (lat, lng) => {
   xhr.send(null);
 };
 
+/*
+ * This function makes an HTTP request to the GeoNames website to get the
+ * latitude and longitude for a given location based on the zip code passed
+ * into the URL as a query parameter from the input field. It updates the
+ * table heading with the city name.
+ *
+ */
 const getLocation = () => {
   let xhr = new XMLHttpRequest();
   let zip = document.querySelector("#zip").value;
@@ -121,4 +168,5 @@ const getLocation = () => {
   xhr.send(null);
 };
 
+// Kicks off the init method when the page is fully loaded.
 window.onload = init;
