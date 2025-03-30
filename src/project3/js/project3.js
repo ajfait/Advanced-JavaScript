@@ -21,11 +21,16 @@ const addTask = async () => {
         Description: taskDescription,
       }),
     });
-    console.log(`${taskDescription} was added to the list.`);
-    document.querySelector("#task").value = "";
-    displayTasks();
+    if (response.ok) {
+      console.log(`${taskDescription} was added to the list.`);
+      document.querySelector("#task").value = "";
+      displayTasks();
+    } else {
+      console.log(`There was a problem adding ${taskDescription} to the list.`);
+      console.log(response.statusText);
+    }
   } catch (error) {
-    console.error(`There was a problem adding ${taskDescription} to the list.`);
+    console.error(`Error: ${error.message}`);
   }
 };
 
@@ -35,27 +40,29 @@ const displayTasks = async () => {
       method: "GET",
       headers: { "Content-Type": content_type, "x-api-key": api_key },
     });
-    const data = await response.json();
-    const taskList = document.querySelector("#taskList");
-    taskList.innerHTML = "";
-    data.Items.forEach((item) => {
-      console.log(item.Description);
-      const listItem = document.createElement("li");
-      const trashIcon = document.createElement("i");
-      trashIcon.classList.add("bi", "bi-trash3", "pe-2");
-      trashIcon.addEventListener("click", () => {
-        deleteTask(item.Description, listItem);
+    if (response.ok) {
+      const data = await response.json();
+      const taskList = document.querySelector("#taskList");
+      taskList.innerHTML = "";
+      data.Items.forEach((item) => {
+        console.log(item.Description);
+        const listItem = document.createElement("li");
+        const trashIcon = document.createElement("i");
+        trashIcon.classList.add("bi", "bi-trash3", "pe-2");
+        trashIcon.addEventListener("click", () => {
+          deleteTask(item.Description, listItem);
+        });
+        listItem.appendChild(trashIcon);
+        const taskText = document.createTextNode(item.Description);
+        listItem.appendChild(taskText);
+        taskList.appendChild(listItem);
       });
-
-      listItem.appendChild(trashIcon);
-
-      const taskText = document.createTextNode(item.Description);
-      listItem.appendChild(taskText);
-
-      taskList.appendChild(listItem);
-    });
+    } else {
+      console.log("There was an error displaying the tasks.");
+      console.log(response.statusText);
+    }
   } catch (error) {
-    console.error("There was an error displaying the tasks.");
+    console.error(`Error: ${error.message}`);
   }
 };
 
@@ -69,12 +76,17 @@ const deleteTask = async (taskDescription, listItem) => {
         Description: taskDescription,
       }),
     });
-    console.log(`${taskDescription} was deleted from the list.`);
-    listItem.remove();
+    if (response.ok) {
+      console.log(`${taskDescription} was deleted from the list.`);
+      listItem.remove();
+    } else {
+      console.log(
+        `There was a problem removing ${taskDescription} from the list.`
+      );
+      console.log(response.statusText);
+    }
   } catch (error) {
-    console.error(
-      `There was a problem removing ${taskDescription} from the list.`
-    );
+    console.error(`Error: ${error.message}`);
   }
 };
 
