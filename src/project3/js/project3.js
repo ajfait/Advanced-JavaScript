@@ -25,7 +25,7 @@ const addTask = async () => {
     document.querySelector("#task").value = "";
     displayTasks();
   } catch (error) {
-    console.log(`There was a problem adding ${taskDescription} to the list.`);
+    console.error(`There was a problem adding ${taskDescription} to the list.`);
   }
 };
 
@@ -36,14 +36,46 @@ const displayTasks = async () => {
       headers: { "Content-Type": content_type, "x-api-key": api_key },
     });
     const data = await response.json();
+    const taskList = document.querySelector("#taskList");
+    taskList.innerHTML = "";
     data.Items.forEach((item) => {
       console.log(item.Description);
+      const listItem = document.createElement("li");
+      const trashIcon = document.createElement("i");
+      trashIcon.classList.add("bi", "bi-trash3", "pe-2");
+      trashIcon.addEventListener("click", () => {
+        deleteTask(item.Description, listItem);
+      });
+
+      listItem.appendChild(trashIcon);
+
+      const taskText = document.createTextNode(item.Description);
+      listItem.appendChild(taskText);
+
+      taskList.appendChild(listItem);
     });
   } catch (error) {
-    console.log("There was an error displaying the tasks.");
+    console.error("There was an error displaying the tasks.");
   }
 };
 
-const deleteTask = () => {};
+const deleteTask = async (taskDescription, listItem) => {
+  try {
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: { "Content-Type": content_type, "x-api-key": api_key },
+      body: JSON.stringify({
+        StudentId: student_id,
+        Description: taskDescription,
+      }),
+    });
+    console.log(`${taskDescription} was deleted from the list.`);
+    listItem.remove();
+  } catch (error) {
+    console.error(
+      `There was a problem removing ${taskDescription} from the list.`
+    );
+  }
+};
 
 window.onload = init;
