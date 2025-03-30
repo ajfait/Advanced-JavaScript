@@ -28,24 +28,34 @@
     <script src="js/project3.js" charset="UTF-8"></script>
   </head>
   <body>
+    <!-- Header -->
     <header>
       <h1 class="p-5">Project 3</h1>
     </header>
+    <!-- END Header -->
+
+    <!-- Main Content -->
     <main id="main">
-      <div class="row">
-        <div class="container col-sm-4 py-3 shadow bg-body-tertiary rounded">
-          <form>
-            <label for="task" class="form-label">Task Description</label>
-            <input type="text" id="task" class="form-control" required />
-            <div class="pt-2">
-              <button type="button" id="newTask" class="btn btn-primary">
-                Add New Task
-              </button>
-            </div>
-          </form>
-        </div>
+      <div
+        class="container col-sm-4 shadow bg-body-tertiary rounded flex-direction: row py-3 ms-5"
+      >
+        <!-- Form -->
+        <form>
+          <label for="task" class="form-label">Task Description</label>
+          <input type="text" id="task" class="form-control" required />
+          <div class="pt-2">
+            <button type="button" id="newTask" class="btn btn-primary">
+              Add New Task
+            </button>
+          </div>
+        </form>
+        <!-- END Form -->
       </div>
     </main>
+    <!-- END Main Content -->
+
+    <!-- Footer -->
     <footer></footer>
+    <!-- END Footer -->
   </body>
 </html>

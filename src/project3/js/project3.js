@@ -1,3 +1,10 @@
+/*
+ * Alison Fait
+ * Online
+ * ajfait@madisoncollege.edu
+ *
+ */
+
 "use strict";
 
 // Create global constants
@@ -10,17 +17,33 @@ const content_type = "application/json";
 let taskList;
 let mainContent;
 
+/*
+ * This function begins the application when the page is loaded.
+ * It selects the main content, creates an unordered list,
+ * appends the unordered list to the main content, assigns an
+ * event listener to the CTA, and calls displayTasks().
+ *
+ */
 const init = () => {
   mainContent = document.getElementById("main");
   taskList = document.createElement("ul");
   taskList.setAttribute("id", "taskList");
-  taskList.setAttribute("class", "container py-3 col-sm-4");
+  taskList.setAttribute(
+    "class",
+    "container col-sm-4 flex-direction: row py-3 ms-5"
+  );
   taskList.setAttribute("style", "list-style-type: none");
   mainContent.appendChild(taskList);
   document.querySelector("#newTask").addEventListener("click", addTask);
   displayTasks();
 };
 
+/*
+ * This function adds a task to the task list. It validates the
+ * input field, sends a POST request to the API, waits for a
+ * response, clears the input field, and calls displayTasks().
+ *
+ */
 const addTask = async () => {
   const taskDescription = document.querySelector("#task").value;
 
@@ -51,6 +74,13 @@ const addTask = async () => {
   }
 };
 
+/*
+ * This function displays the task list. It sends a GET request
+ * to the API, waits for a response, creates a list item for
+ * each element in the task list, and appends each list item
+ * to the unordered task list.
+ *
+ */
 const displayTasks = async () => {
   try {
     const response = await fetch(url + student_id, {
@@ -83,6 +113,12 @@ const displayTasks = async () => {
   }
 };
 
+/*
+ * This function deletes tasks from the list. It sends a
+ * DELETE request to the API, waits for a response, and
+ * removes the task from the list.
+ *
+ */
 const deleteTask = async (taskDescription, listItem) => {
   try {
     const response = await fetch(url, {
@@ -107,4 +143,5 @@ const deleteTask = async (taskDescription, listItem) => {
   }
 };
 
+// Kicks off the init method when the page is fully loaded.
 window.onload = init;
