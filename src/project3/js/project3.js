@@ -21,10 +21,28 @@ const addTask = async () => {
         Description: taskDescription,
       }),
     });
-  } catch (error) {}
+    console.log(`${taskDescription} was added to the list.`);
+    document.querySelector("#task").value = "";
+    displayTasks();
+  } catch (error) {
+    console.log(`There was a problem adding ${taskDescription} to the list.`);
+  }
 };
 
-const displayTasks = () => {};
+const displayTasks = async () => {
+  try {
+    const response = await fetch(url + student_id, {
+      method: "GET",
+      headers: { "Content-Type": content_type, "x-api-key": api_key },
+    });
+    const data = await response.json();
+    data.Items.forEach((item) => {
+      console.log(item.Description);
+    });
+  } catch (error) {
+    console.log("There was an error displaying the tasks.");
+  }
+};
 
 const deleteTask = () => {};
 
