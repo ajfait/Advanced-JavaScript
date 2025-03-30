@@ -28,12 +28,24 @@
     <script src="js/project3.js" charset="UTF-8"></script>
   </head>
   <body>
-    <h1>Project 3</h1>
-    <h2>Add Tasks</h2>
-    <label for="task">Add New Task</label>
-    <input type="text" id="task" required />
-    <button type="button" id="newTask">Add Task</button>
-    <h2>Current Tasks</h2>
-    <ol id="taskList"></ol>
+    <header>
+      <h1 class="p-5">Project 3</h1>
+    </header>
+    <main id="main">
+      <div class="row">
+        <div class="container col-sm-4 py-3 shadow bg-body-tertiary rounded">
+          <form>
+            <label for="task" class="form-label">Task Description</label>
+            <input type="text" id="task" class="form-control" required />
+            <div class="pt-2">
+              <button type="button" id="newTask" class="btn btn-primary">
+                Add New Task
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+    <footer></footer>
   </body>
 </html>

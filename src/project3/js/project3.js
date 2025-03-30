@@ -1,16 +1,33 @@
-// Create global variables
+"use strict";
+
+// Create global constants
 const url = "https://ghu8xhzgfe.execute-api.us-east-1.amazonaws.com/tasks/";
 const student_id = "2886897";
 const api_key = "Itcheui2tB58SlUGe8rrP8mskudGsNDT9nfKKG9S";
 const content_type = "application/json";
 
+// Create global variables
+let taskList;
+let mainContent;
+
 const init = () => {
+  mainContent = document.getElementById("main");
+  taskList = document.createElement("ul");
+  taskList.setAttribute("id", "taskList");
+  taskList.setAttribute("class", "container py-3 col-sm-4");
+  taskList.setAttribute("style", "list-style-type: none");
+  mainContent.appendChild(taskList);
   document.querySelector("#newTask").addEventListener("click", addTask);
   displayTasks();
 };
 
 const addTask = async () => {
   const taskDescription = document.querySelector("#task").value;
+
+  if (!taskDescription) {
+    alert("Enter a task description.");
+    return;
+  }
 
   try {
     const response = await fetch(url, {
